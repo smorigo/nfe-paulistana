@@ -68,7 +68,9 @@ module NfePaulistana
     private
 
     def certificate
-      puts @options[:certificate_public]
+      puts "publico: #{@options[:certificate_public]}"
+      puts "privado: #{@options[:certificate_private_key]}"
+      puts "senha: #{@options[:certificate_password]}"
       
       certificate = OpenSSL::X509::Certificate.new(@options[:certificate_public])
       private_key = OpenSSL::PKey::RSA.new(@options[:certificate_private_key], @options[:certificate_password])
