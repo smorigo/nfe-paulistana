@@ -70,14 +70,7 @@ module NfePaulistana
     def certificate
       certificate = OpenSSL::X509::Certificate.new(@options[:certificate_public])
       private_key = OpenSSL::PKey::RSA.new(@options[:certificate_private_key], @options[:certificate_password])
-      OpenSSL::PKCS12.new(private_key, certificate)
-      
-      puts "Certificado e chave carregados com sucesso!"
-      
-    rescue OpenSSL::X509::CertificateError => e
-      puts "Erro ao carregar o certificado: #{e.message}"
-    rescue OpenSSL::PKey::PKeyError => e
-      puts "Erro ao carregar a chave privada: #{e.message}"
+      OpenSSL::PKCS12.create(password, 'Certificado', private_key, certificate)
     end
 
     def request(method, data = {})
