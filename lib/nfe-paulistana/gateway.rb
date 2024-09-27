@@ -68,22 +68,18 @@ module NfePaulistana
     private
 
     def certificate
-      puts "CERTIFICATE ENTROU"
       certificate = OpenSSL::X509::Certificate.new(@options[:certificate_public])
       private_key = OpenSSL::PKey::RSA.new(@options[:certificate_private_key], @options[:certificate_password])
-      OpenSSL::PKCS12.new(private_key, certificate, @options[:certificate_password])
-      puts "CERTIFICATE SAIU"
+      OpenSSL::PKCS12.new(private_key, certificate)
     end
 
     def request(method, data = {})
-      puts "REQUEST ENTROU"
       certificado = certificate
       client = get_client
       message = XmlBuilder.new.xml_for(method, data, certificado)
       response = client.call(method, message: message)
       method_response = (method.to_s + "_response").to_sym
       Response.new(xml: response.hash[:envelope][:body][method_response][:retorno_xml], method: method)
-      puts "REQUEST SAIU"
     rescue Savon::Error => error
       error
     end
