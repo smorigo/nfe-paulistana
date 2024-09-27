@@ -18,10 +18,9 @@ module NfePaulistana
 
     def initialize(options = {})
       @options = {
-        ssl_cert_p12_path: "",
-        ssl_cert_path: "", 
-        ssl_key_path: "", 
-        ssl_cert_pass: "",
+        certificate_public: "",
+        certificate_private_key: "",
+        certificate_password: "",
         wsdl: 'https://nfe.prefeitura.sp.gov.br/ws/lotenfe.asmx?wsdl'
       }.merge(options)
     end
@@ -69,7 +68,8 @@ module NfePaulistana
     private
 
     def certificate
-      OpenSSL::PKCS12.new(File.read(@options[:ssl_cert_p12_path]), @options[:ssl_cert_pass])
+      #OpenSSL::PKCS12.new(File.read(@options[:ssl_cert_p12_path]), @options[:ssl_cert_pass])
+      OpenSSL::PKCS12.new(@options[:private_key], @options[:certificate], @options[:password])
     end
 
     def request(method, data = {})
