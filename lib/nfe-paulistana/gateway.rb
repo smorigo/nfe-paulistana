@@ -89,7 +89,6 @@ module NfePaulistana
                  ssl_verify_mode: :peer, 
                         ssl_cert: OpenSSL::X509::Certificate.new(@options[:certificate_public]),
                     ssl_cert_key: OpenSSL::PKey::RSA.new(@options[:certificate_private_key]),
-           ssl_cert_key_password: @options[:certificate_password],
                             wsdl: @options[:wsdl], 
             namespace_identifier: nil)
     end
