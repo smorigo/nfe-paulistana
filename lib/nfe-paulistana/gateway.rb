@@ -91,7 +91,7 @@ module NfePaulistana
                     ssl_cert_key: OpenSSL::PKey::RSA.new(@options[:certificate_private_key]),
            ssl_cert_key_password: @options[:certificate_password],
                             wsdl: @options[:wsdl], 
-             amespace_identifier: nil)
+            namespace_identifier: nil)
     end
   end
 end
