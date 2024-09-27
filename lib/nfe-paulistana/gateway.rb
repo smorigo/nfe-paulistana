@@ -68,10 +68,6 @@ module NfePaulistana
     private
 
     def certificate
-      puts "publico: #{@options[:certificate_public]}"
-      puts "privado: #{@options[:certificate_private_key]}"
-      puts "senha: #{@options[:certificate_password]}"
-      
       certificate = OpenSSL::X509::Certificate.new(@options[:certificate_public])
       private_key = OpenSSL::PKey::RSA.new(@options[:certificate_private_key], @options[:certificate_password])
       OpenSSL::PKCS12.new(private_key, certificate)
@@ -89,6 +85,7 @@ module NfePaulistana
     end
 
     def get_client
+      puts "#{@options[:certificate_public]}"
       Savon.client(env_namespace: :soap,
                  ssl_verify_mode: :peer, 
                         ssl_cert: OpenSSL::X509::Certificate.new(@options[:certificate_public]),
