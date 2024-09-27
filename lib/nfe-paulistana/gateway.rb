@@ -68,8 +68,9 @@ module NfePaulistana
     private
 
     def certificate
-      #OpenSSL::PKCS12.new(File.read(@options[:ssl_cert_p12_path]), @options[:ssl_cert_pass])
-      OpenSSL::PKCS12.new(@options[:private_key], @options[:certificate], @options[:password])
+      certificate = OpenSSL::X509::Certificate.new(@options[:certificate_public])
+      private_key = OpenSSL::PKey::RSA.new(@options[:certificate_private_key], @options[:certificate_password])
+      OpenSSL::PKCS12.new(private_key, certificate, password)
     end
 
     def request(method, data = {})
